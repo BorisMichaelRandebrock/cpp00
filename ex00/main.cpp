@@ -6,7 +6,7 @@
 /*   By: brandebr <brandebr@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:29:49 by brandebr          #+#    #+#             */
-/*   Updated: 2024/08/26 17:48:54 by brandebr         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:49:03 by brandebr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ std::string toUppercase(const std::string &str) {
 }
 
 int	main(int argc, char *argv[]) {
-	int	i = 0;
 	if (argc == 1) {
 		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
 	} else if (argc > 1) {
