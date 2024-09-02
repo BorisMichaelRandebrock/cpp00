@@ -6,7 +6,7 @@
 /*   By: brandebr <brandebr@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:49:35 by brandebr          #+#    #+#             */
-/*   Updated: 2024/08/30 19:23:31 by brandebr         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:14:38 by brandebr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,23 @@
 #include "phonebook.hpp"
 #include "contact.hpp"
 
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN    "\033[36m"
+#define WHITE   "\033[37m"
 
 PhoneBook::PhoneBook() : totalContacts(0) {}
-/*PhoneBook::PhoneBook(void) {
-
-	public:
-		addContact(int new_index, std::string new_firstname, std::string new_lastname; std::string new_nickname);
-}*/
- 
 
 std::string PhoneBook::speak() {
 	return "blahblahblah";
 }
 
 PhoneBook::~PhoneBook() {
-	std::cout << "i have been destroyed" << std::endl;
+	std::cout << MAGENTA << "Phonebook: i am being destroyed 😥" << RESET << std::endl;
 };
 
 void PhoneBook::addContact() {
@@ -49,7 +51,25 @@ void PhoneBook::addContact() {
 	if (totalContacts >= 0 && totalContacts < 8) {
 		contacts[totalContacts] = Contact(totalContacts, name, lastName, nickName, phoneNumber, secret);
 		totalContacts++;
+		std::cout << "The Phonebook has been updated!" << std::endl;
+
 	} else {
 		contacts[7] = Contact(7, name, lastName, nickName, phoneNumber, secret);
+		std::cout << "Your Phonebook has been updated!" << std::endl;
 	}
+}
+
+void PhoneBook::search() {
+	if (totalContacts == 0) {
+		std::cout << RED << "No Contacts stored 😓,.. nothing to display..." << RESET << std::endl;
+		return;
+	}
+
+	for (int i = 0; i < totalContacts; i++) {
+        std::cout << "Contact " << i << " | ";
+        std::cout << "Name: " << contacts[i].getFirstName() << " |  ";
+        std::cout << "Last Name: " << contacts[i].getLastName() << " | ";
+        std::cout << "Nickname: " << contacts[i].getNickName() << std::endl;		
+	}
+	
 }
