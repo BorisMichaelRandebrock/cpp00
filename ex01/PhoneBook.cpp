@@ -6,7 +6,7 @@
 /*   By: brandebr <brandebr@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:49:35 by brandebr          #+#    #+#             */
-/*   Updated: 2024/09/03 14:37:07 by brandebr         ###   ########.fr       */
+/*   Updated: 2024/09/03 17:24:25 by brandebr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,9 @@ void PhoneBook::addContact() {
     nickName = getInput("Please enter the contact's nickname..", " nickname");
     phoneNumber = getInput("Please enter the contact's phone number.. 📱", " telephone number");
     secret = getInput("Please enter the contact's darkest secret. 👿", " darkest secret");
-	if (totalContacts >= 0 && totalContacts < 8) {
-
-		contacts[totalContacts] = Contact(totalContacts, name, lastName, nickName, phoneNumber, secret);
-		totalContacts++;
-		std::cout << GREEN << "The Phonebook has been updated!" << RESET << std::endl;
-
-	} else {
-		contacts[7] = Contact(7, name, lastName, nickName, phoneNumber, secret);
-		std::cout << GREEN << "Your Phonebook has been updated!" << RESET << std::endl;
-	}
+	contacts[totalContacts % 8] = Contact(totalContacts % 8, name, lastName, nickName, phoneNumber, secret);
+	//if (totalContacts < 8)
+	totalContacts++;
 }
 
 std::string formatField(const std::string &field) {
@@ -85,62 +78,45 @@ std::string formatField(const std::string &field) {
 }
 
 void PhoneBook::search() {
-	std::cout << totalContacts << std::endl;
 	if (totalContacts == 0) {
-		std::cout << RED << "No Contacts stored 😓,.. nothing to display..." << RESET << std::endl;
+		std::cout << RED << "No Contacts stored 😓,.. nothing to display..." << RESET << std::endl << std::endl;
 		return;
 	}
+	std::cout << "" << std::endl;	
+	std::cout << "***********************************************************************************" << std::endl;	
+	std::cout << "" << std::endl;	
 
-	for (int i = 0; i < totalContacts; i++) {
+	for (int i = 0; i < 8; i++) {
         std::cout << std::setw(10) << "Index: " << i << " | ";
         std::cout << std::setw(10) << "Name: " << formatField(contacts[i].getFirstName()) << " |  ";
         std::cout << std::setw(10) << "Last Name: " << formatField(contacts[i].getLastName()) << " | ";
-        std::cout << std::setw(10) << "Nickname: " << formatField(contacts[i].getNickName()) << std::endl;		
+        std::cout << std::setw(10) << "Nickname: " << formatField(contacts[i].getNickName()) << std::endl;
 	}
+	std::cout << "" << std::endl;	
+	std::cout << "***********************************************************************************" << std::endl;	
+	std::cout << "" << std::endl;	
 	int	searched;
-	std::cout << "Please enter the contacts index number to display all details " << std::endl;
+	std::cout << "Please enter the contacts index number to display all details " << std::endl << std::endl;
+
 	std::cin >> searched;
-	if (std::cin.fail()) {
-		std::cout << "This contact has not been created" << std::endl;
+	int i = 0;
+	while (i < totalContacts)
+		i++;
+	if (searched > i -1) {
+		std::cout << RED << "The contact at index " << searched << " has not been created or is out of bounds" << RESET << std::endl << std::endl;
 		return;
 	}
+	
+	std::cout << "" << std::endl;	
+	std::cout << "***********************************************************************************" << std::endl;	
+	std::cout << "" << std::endl;	
 	std::cout << "Name:     		" << GREEN << contacts[searched].getFirstName() << RESET << std::endl;
 	std::cout << "Lastname: 		" << GREEN << contacts[searched].getLastName() << RESET << std::endl;
 	std::cout << "Nickname: 		" << GREEN << contacts[searched].getNickName() << RESET << std::endl;
 	std::cout << "Telephone:	 	" << GREEN << contacts[searched].getPhoneNumber() << RESET << std::endl;
 	std::cout << "Darkest Secret:		" << GREEN << contacts[searched].getSecret() << RESET << std::endl;
+	std::cout << "" << std::endl;	
+	std::cout << "***********************************************************************************" << std::endl;	
+	std::cout << "" << std::endl;	
 
 }
-	/*
-	while (true) {
-		std::cout << "Please enter the contacts name.. 🤗" << std::endl;
-		std::getline(std::cin, name);
-		if (name.empty() || name == " ") {
-			std::cout << RED << "Please enter a valid name" << RESET << std::endl;
-			continue;
-		}
-		std::cout << "Please enter the contacts last name.. " << std::endl;
-		std::getline(std::cin, lastName);
-		if (lastName.empty() || lastName == " ") {
-			std::cout << RED << "Please enter a valid last name" << RESET << std::endl;
-			continue;
-		}
-		std::cout << "Please enter the contacts nickname.." << std::endl;
-		std::getline(std::cin, nickName);
-		if (nickName.empty() || nickName == " ") {
-			std::cout << RED << "Please enter a valid nickname" << RESET << std::endl;
-			continue;
-		}
-		std::cout << "Please enter the contacts phone number.. 📱" << std::endl;
-		std::getline(std::cin, phoneNumber);
-		if (phoneNumber.empty() || phoneNumber == " ") {
-			std::cout << RED << "Please enter a valid phone number.." << RESET << std::endl;
-			continue;
-		}
-		std::cout << "Please enter the contacts darkest secret. 👿" << std::endl;
-		std::getline(std::cin, secret);
-		if (secret.empty() || secret == " ") {
-			std::cout << RED << "Please enter the darkest secret." << RESET << std::endl;
-			continue;
-		}
-	}*/
