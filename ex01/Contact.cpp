@@ -6,7 +6,7 @@
 /*   By: brandebr <brandebr@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 19:18:34 by brandebr          #+#    #+#             */
-/*   Updated: 2024/08/30 19:39:11 by brandebr         ###   ########.fr       */
+/*   Updated: 2024/09/03 18:30:46 by brandebr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ Contact::Contact(int index, std::string firstName, std::string lastName, std::st
 	: index(index), firstName(firstName), lastName(lastName), nickName(nickName), phoneNumber(phoneNumber), secret(secret) {}
 
 Contact::~Contact() {}
+
+int Contact::getIndex() const {
+	return index;
+}
 
 std::string Contact::getFirstName() const {
 return firstName;

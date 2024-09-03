@@ -6,7 +6,7 @@
 #    By: brandebr <brandebr@42barcelona.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/26 18:00:41 by brandebr          #+#    #+#              #
-#    Updated: 2024/08/30 18:16:16 by brandebr         ###   ########.fr        #
+#    Updated: 2024/09/03 18:19:49 by brandebr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,9 @@ $(OBJ_DIR)%.o: %.cpp Makefile
 # Link the .o files into the final executable
 $(NAME): $(OBJ)
 	$(CC) $(OBJ) -o $(NAME)
+
+valgrind: $(NAME)
+	@valgrind --leak-check=full --track-origins=yes ./$(NAME)
 
 clean:
 	/bin/rm -f $(OBJ)

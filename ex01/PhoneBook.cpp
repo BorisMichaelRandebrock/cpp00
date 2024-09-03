@@ -6,7 +6,7 @@
 /*   By: brandebr <brandebr@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:49:35 by brandebr          #+#    #+#             */
-/*   Updated: 2024/09/03 17:24:25 by brandebr         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:24:28 by brandebr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ void PhoneBook::addContact() {
     nickName = getInput("Please enter the contact's nickname..", " nickname");
     phoneNumber = getInput("Please enter the contact's phone number.. 📱", " telephone number");
     secret = getInput("Please enter the contact's darkest secret. 👿", " darkest secret");
-	contacts[totalContacts % 8] = Contact(totalContacts % 8, name, lastName, nickName, phoneNumber, secret);
-	//if (totalContacts < 8)
+//	contacts[totalContacts % 8] = Contact(totalContacts, name, lastName, nickName, phoneNumber, secret);// changes index to 8, 9.... and later unaccesible
+	contacts[totalContacts % 8] = Contact(totalContacts % 8, name, lastName, nickName, phoneNumber, secret);// correct but segfault
+//	if (totalContacts < 8)
 	totalContacts++;
 }
 
@@ -77,6 +78,12 @@ std::string formatField(const std::string &field) {
 	}
 }
 
+std::string intToString(int value) {
+    std::ostringstream oss;
+    oss << value;
+    return oss.str();
+}
+
 void PhoneBook::search() {
 	if (totalContacts == 0) {
 		std::cout << RED << "No Contacts stored 😓,.. nothing to display..." << RESET << std::endl << std::endl;
@@ -86,11 +93,22 @@ void PhoneBook::search() {
 	std::cout << "***********************************************************************************" << std::endl;	
 	std::cout << "" << std::endl;	
 
-	for (int i = 0; i < 8; i++) {
-        std::cout << std::setw(10) << "Index: " << i << " | ";
-        std::cout << std::setw(10) << "Name: " << formatField(contacts[i].getFirstName()) << " |  ";
-        std::cout << std::setw(10) << "Last Name: " << formatField(contacts[i].getLastName()) << " | ";
-        std::cout << std::setw(10) << "Nickname: " << formatField(contacts[i].getNickName()) << std::endl;
+	if (totalContacts < 8) {
+		for (int i = 0; i < totalContacts; i++) {
+		//std::cout << std::setw(10) << "Index: " << formatField(intToString(i)) << " | ";
+			std::cout << std::setw(10) << "Index: " << formatField(intToString(contacts[i].getIndex())) << " | ";
+        	std::cout << std::setw(10) << "Name: " << formatField(contacts[i].getFirstName()) << " |  ";
+        	std::cout << std::setw(10) << "Last Name: " << formatField(contacts[i].getLastName()) << " | ";
+        	std::cout << std::setw(10) << "Nickname: " << formatField(contacts[i].getNickName()) << std::endl;
+		} 
+	} else {
+		for (int i = 0; i < 8; i++) {
+		//std::cout << std::setw(10) << "Index: " << formatField(intToString(i)) << " | ";
+			std::cout << std::setw(10) << "Index: " << formatField(intToString(contacts[i].getIndex())) << " | ";
+        	std::cout << std::setw(10) << "Name: " << formatField(contacts[i].getFirstName()) << " |  ";
+        	std::cout << std::setw(10) << "Last Name: " << formatField(contacts[i].getLastName()) << " | ";
+        	std::cout << std::setw(10) << "Nickname: " << formatField(contacts[i].getNickName()) << std::endl;
+		}
 	}
 	std::cout << "" << std::endl;	
 	std::cout << "***********************************************************************************" << std::endl;	

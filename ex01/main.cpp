@@ -6,7 +6,7 @@
 /*   By: brandebr <brandebr@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:14:07 by brandebr          #+#    #+#             */
-/*   Updated: 2024/09/03 16:53:21 by brandebr         ###   ########.fr       */
+/*   Updated: 2024/09/03 18:34:57 by brandebr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,61 +91,3 @@ PhoneBook phony;
 	}
 	return 0;
 }
-/*
- 
-std::string trim(const std::string& str) {
-    size_t first = str.find_first_not_of(' ');
-    if (first == std::string::npos)
-        return "";
-    size_t last = str.find_last_not_of(' ');
-    return str.substr(first, last - first + 1);
-}
-
-bool isValidNumber(const std::string& str) {
-    if (str.empty())
-        return false;
-    for (size_t i = 0; i < str.length(); ++i) {  // C++98 compatible loop
-        if (!std::isdigit(str[i])) {
-            return false;
-        }
-    }
-    return true;
-}
- 
- 
- 
-int getValidUserInput() {
-    std::string inputStr;
-    int userInput;
-
-    while (true) {
-        std::cout << YELLOW << "Please enter your choice: " << RESET << std::endl;
-        std::cout << "Enter 1 for creating a new Contact." << std::endl;
-        std::cout << "Enter 2 for searching contacts" << std::endl;
-        std::cout << "Enter 3 for exit" << std::endl;
-
-        std::getline(std::cin, inputStr);
-
-        if (std::cin.eof()) {
-            std::cout << RED << "EOF encountered. Exiting program." << RESET << std::endl;
-            std::exit(0); // Corrected: Use std::exit(0) to handle EOF
-        }
-
-       // inputStr = trim(inputStr); // Trim the input to remove leading/trailing spaces
-
-        if (inputStr.empty()) {
-            std::cout << RED << "Empty input is not valid. Please enter a valid number." << RESET << std::endl;
-            continue;
-        }
-
-        if (!isValidNumber(inputStr)) {
-            std::cout << RED << "Invalid input. Please enter a valid number." << RESET << std::endl;
-            continue;
-        }
-
-        userInput = std::atoi(inputStr.c_str()); // Convert string to integer using C++98-compatible function
-
-        return userInput;
-    }
-}
-*/
