@@ -6,12 +6,13 @@
 /*   By: brandebr <brandebr@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:14:07 by brandebr          #+#    #+#             */
-/*   Updated: 2024/09/02 15:13:36 by brandebr         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:17:37 by brandebr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <limits>  ///allowed??
+#include <cstdlib>
 #include "phonebook.hpp"
 #include "contact.hpp"
 
@@ -24,23 +25,34 @@
 #define CYAN    "\033[36m"
 #define WHITE   "\033[37m"
 
-int getValidUserInput() {
-	int userInput;
+char getValidUserInput() {
+	char userInput;
+
     while (true) {
-        std::cout << GREEN << "Please enter your choice: "<< RESET << std::endl;
+        std::cout << YELLOW << "Please enter your choice: "<< RESET << std::endl;
         std::cout << "Enter 1 for creating a new Contact." << std::endl;
         std::cout << "Enter 2 for searching contacts" << std::endl;
         std::cout << "Enter 3 for exit" << std::endl;
 
         std::cin >> userInput;
-
+		if (std::cin.eof()) {  // Check for EOF
+            std::cout << RED << "EOF encountered. Exiting." << RESET << std::endl;
+            exit(0);  // Corrected: Use exit(0) to exit on EOF
+        }
+		if (userInput == '\n') {  // Check for empty input
+            std::cout << RED << "Empty input is not valid. Please enter a valid number." << RESET << std::endl;
+            continue;  // Ask for input again
+        }
         // Check if input is valid
-        if (std::cin.fail()) {
+        if (std::cin.fail() || std::cin.eof()) {
             // Clear error state
             std::cin.clear();
             // Discard invalid input
             std::cin.ignore(10000, '\n');  // Arbitrary large number
             std::cout << RED << "Invalid input. Please enter a  valid number .." << RESET << std::endl;
+		}else if (userInput != '1' && userInput != '2' && userInput != '3' && userInput != '4') {
+				std::cout << RED << "Please enter a valid number between 1 and 3" << RESET << std::endl;
+				continue;
         } else {
             // Input is valid
             std::cin.ignore(10000, '\n');  // Discard any remaining input in the buffer
@@ -51,25 +63,26 @@ int getValidUserInput() {
 
 int main() {
 PhoneBook phony;
-//	std::cout << phony.speak() << std::endl; 
     std::cout << CYAN << "Welcome to the PhoneBook application!" << RESET << std::endl;
-	int	userInput;
+	char	userInput;
 
 	while (true) {
-		userInput = getValidUserInput(); 
+		userInput = getValidUserInput();// && !(userInput == "") && !(cin.eof()); 
 
-		switch (userInput) {
-			case 1:
+	/*	if (std::cin.eof())
+			std::cout << "Invalid input.. please enter a number between 1 and 3" << std::endl;
+	*/	switch (userInput) {
+			case '1':
         		phony.addContact();
 				break;
-			case 2:
-				/*std::cout <<*/ phony.search();
+			case '2':
+				phony.search();
 				break;
-			case 3:
-				std::cout << BLUE << "c u next time.. Goodbye.. 👋" << RESET << std::endl;
+			case '3':
+				std::cout << "c u next time.. Goodbye.. 👋" << std::endl;
 				return 0;
 				break;
-			case 4:
+			case '4':
 				std::cout << MAGENTA << phony.speak() << RESET << std::endl;
 				break;
 			default:
@@ -77,13 +90,64 @@ PhoneBook phony;
 				break;
 		}
 	}
-    /*for (int i = 0; i < 10; ++i) {  // Attempt to add up to 10 contacts
-        std::cout << "Adding contact " << (i + 1) << "..." << std::endl;
-        phony.addContact();  // Add a contact
-    }
-
-    std::cout << "PhoneBook updated!" << std::endl;*/
-
 	
-	return (0);
+	return 0;
 }
+/*
+ 
+std::string trim(const std::string& str) {
+    size_t first = str.find_first_not_of(' ');
+    if (first == std::string::npos)
+        return "";
+    size_t last = str.find_last_not_of(' ');
+    return str.substr(first, last - first + 1);
+}
+
+bool isValidNumber(const std::string& str) {
+    if (str.empty())
+        return false;
+    for (size_t i = 0; i < str.length(); ++i) {  // C++98 compatible loop
+        if (!std::isdigit(str[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+ 
+ 
+ 
+int getValidUserInput() {
+    std::string inputStr;
+    int userInput;
+
+    while (true) {
+        std::cout << YELLOW << "Please enter your choice: " << RESET << std::endl;
+        std::cout << "Enter 1 for creating a new Contact." << std::endl;
+        std::cout << "Enter 2 for searching contacts" << std::endl;
+        std::cout << "Enter 3 for exit" << std::endl;
+
+        std::getline(std::cin, inputStr);
+
+        if (std::cin.eof()) {
+            std::cout << RED << "EOF encountered. Exiting program." << RESET << std::endl;
+            std::exit(0); // Corrected: Use std::exit(0) to handle EOF
+        }
+
+       // inputStr = trim(inputStr); // Trim the input to remove leading/trailing spaces
+
+        if (inputStr.empty()) {
+            std::cout << RED << "Empty input is not valid. Please enter a valid number." << RESET << std::endl;
+            continue;
+        }
+
+        if (!isValidNumber(inputStr)) {
+            std::cout << RED << "Invalid input. Please enter a valid number." << RESET << std::endl;
+            continue;
+        }
+
+        userInput = std::atoi(inputStr.c_str()); // Convert string to integer using C++98-compatible function
+
+        return userInput;
+    }
+}
+*/
