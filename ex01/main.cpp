@@ -6,7 +6,7 @@
 /*   By: brandebr <brandebr@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:14:07 by brandebr          #+#    #+#             */
-/*   Updated: 2024/09/03 18:34:57 by brandebr         ###   ########.fr       */
+/*   Updated: 2024/09/04 11:15:10 by brandebr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,27 +35,24 @@ char getValidUserInput() {
         std::cout << "Enter 3 for exit" << std::endl;
 
         std::cin >> userInput;
-		if (std::cin.eof()) {  // Check for EOF
-            std::cout << RED << "EOF encountered. Exiting." << RESET << std::endl;
-            exit(0);  // Corrected: Use exit(0) to exit on EOF
+		if (std::cin.eof()) {
+			std::cout << RED << "EOF encountered. Exiting." << RESET << std::endl;
+            exit(0);
         }
-		if (userInput == '\n') {  // Check for empty input
+		if (userInput == '\n') {
             std::cout << RED << "Empty input is not valid. Please enter a valid number." << RESET << std::endl << std::endl;
-            continue;  // Ask for input again
+            continue;
         }
-        // Check if input is valid
-        if (std::cin.fail() || std::cin.eof()) {
-            // Clear error state
+        if (std::cin.fail()) {
             std::cin.clear();
-            // Discard invalid input
-            std::cin.ignore(10000, '\n');  // Arbitrary large number
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cout << RED << "Invalid input. Please enter a  valid number .." << RESET << std::endl << std::endl;
 		}else if (userInput != '1' && userInput != '2' && userInput != '3' && userInput != '4') {
 				std::cout << RED << "Please enter a valid number between 1 and 3" << RESET << std::endl <<std::endl;
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				continue;
         } else {
-            // Input is valid
-            std::cin.ignore(10000, '\n');  // Discard any remaining input in the buffer
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             return userInput;
         }
     }

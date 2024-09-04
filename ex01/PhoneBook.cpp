@@ -6,7 +6,7 @@
 /*   By: brandebr <brandebr@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:49:35 by brandebr          #+#    #+#             */
-/*   Updated: 2024/09/03 19:24:28 by brandebr         ###   ########.fr       */
+/*   Updated: 2024/09/04 11:58:47 by brandebr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ PhoneBook::~PhoneBook() {
 	std::cout << MAGENTA << "Phonebook: i am being destroyed 😥" << RESET << std::endl;
 };
 
+std::string trim(const std::string &str) {
+	size_t first = str.find_first_not_of(' ');
+	if (first == std::string::npos) return "";
+    size_t last = str.find_last_not_of(' ');
+    return str.substr(first, (last - first + 1));
+}
+
 std::string getInput(const std::string &prompt, const std::string &inputField) {
 	std::string input;
 	while (42) {
@@ -46,7 +53,8 @@ std::string getInput(const std::string &prompt, const std::string &inputField) {
             std::cout << RED << "EOF encountered. Exiting." << RESET << std::endl;
 			exit(0);
 		}
-		if (!input.empty() && input != " ") {
+		input = trim(input);
+		if (!input.empty()) {
 			break;
 		}
         std::cout << RED << "Please enter a valid input" << GREEN << inputField << RESET << std::endl;
@@ -57,14 +65,12 @@ std::string getInput(const std::string &prompt, const std::string &inputField) {
 void PhoneBook::addContact() {
 	std::string name, lastName, nickName, phoneNumber, secret;
 
-    name = getInput("Please enter the contact's name.. 🤗", " name");
+    name = getInput("Please enter the contact's name.. ㍻", " name");
     lastName = getInput("Please enter the contact's last name..", " last name");
-    nickName = getInput("Please enter the contact's nickname..", " nickname");
+    nickName = getInput("Please enter the contact's nickname.. 🤗", " nickname");
     phoneNumber = getInput("Please enter the contact's phone number.. 📱", " telephone number");
     secret = getInput("Please enter the contact's darkest secret. 👿", " darkest secret");
-//	contacts[totalContacts % 8] = Contact(totalContacts, name, lastName, nickName, phoneNumber, secret);// changes index to 8, 9.... and later unaccesible
-	contacts[totalContacts % 8] = Contact(totalContacts % 8, name, lastName, nickName, phoneNumber, secret);// correct but segfault
-//	if (totalContacts < 8)
+	contacts[totalContacts % 8] = Contact(totalContacts % 8, name, lastName, nickName, phoneNumber, secret);
 	totalContacts++;
 }
 
@@ -90,12 +96,11 @@ void PhoneBook::search() {
 		return;
 	}
 	std::cout << "" << std::endl;	
-	std::cout << "***********************************************************************************" << std::endl;	
+	std::cout << "**********************************************************************************************" << std::endl;	
 	std::cout << "" << std::endl;	
 
 	if (totalContacts < 8) {
 		for (int i = 0; i < totalContacts; i++) {
-		//std::cout << std::setw(10) << "Index: " << formatField(intToString(i)) << " | ";
 			std::cout << std::setw(10) << "Index: " << formatField(intToString(contacts[i].getIndex())) << " | ";
         	std::cout << std::setw(10) << "Name: " << formatField(contacts[i].getFirstName()) << " |  ";
         	std::cout << std::setw(10) << "Last Name: " << formatField(contacts[i].getLastName()) << " | ";
@@ -103,7 +108,6 @@ void PhoneBook::search() {
 		} 
 	} else {
 		for (int i = 0; i < 8; i++) {
-		//std::cout << std::setw(10) << "Index: " << formatField(intToString(i)) << " | ";
 			std::cout << std::setw(10) << "Index: " << formatField(intToString(contacts[i].getIndex())) << " | ";
         	std::cout << std::setw(10) << "Name: " << formatField(contacts[i].getFirstName()) << " |  ";
         	std::cout << std::setw(10) << "Last Name: " << formatField(contacts[i].getLastName()) << " | ";
@@ -111,7 +115,7 @@ void PhoneBook::search() {
 		}
 	}
 	std::cout << "" << std::endl;	
-	std::cout << "***********************************************************************************" << std::endl;	
+	std::cout << "**********************************************************************************************" << std::endl;	
 	std::cout << "" << std::endl;	
 	int	searched;
 	std::cout << "Please enter the contacts index number to display all details " << std::endl << std::endl;
@@ -126,7 +130,7 @@ void PhoneBook::search() {
 	}
 	
 	std::cout << "" << std::endl;	
-	std::cout << "***********************************************************************************" << std::endl;	
+	std::cout << "**********************************************************************************************" << std::endl;	
 	std::cout << "" << std::endl;	
 	std::cout << "Name:     		" << GREEN << contacts[searched].getFirstName() << RESET << std::endl;
 	std::cout << "Lastname: 		" << GREEN << contacts[searched].getLastName() << RESET << std::endl;
@@ -134,7 +138,7 @@ void PhoneBook::search() {
 	std::cout << "Telephone:	 	" << GREEN << contacts[searched].getPhoneNumber() << RESET << std::endl;
 	std::cout << "Darkest Secret:		" << GREEN << contacts[searched].getSecret() << RESET << std::endl;
 	std::cout << "" << std::endl;	
-	std::cout << "***********************************************************************************" << std::endl;	
+	std::cout << "**********************************************************************************************" << std::endl;	
 	std::cout << "" << std::endl;	
 
 }
