@@ -6,7 +6,7 @@
 /*   By: brandebr <brandebr@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:49:35 by brandebr          #+#    #+#             */
-/*   Updated: 2024/09/04 11:58:47 by brandebr         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:16:02 by brandebr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ std::string PhoneBook::speak() {
 }
 
 PhoneBook::~PhoneBook() {
-	std::cout << MAGENTA << "Phonebook: i am being destroyed 😥" << RESET << std::endl;
+	std::cout << MAGENTA << "Phonebook: I am being destroyed 😥" << RESET << std::endl;
 };
 
 std::string trim(const std::string &str) {
