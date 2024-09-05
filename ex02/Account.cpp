@@ -6,7 +6,7 @@
 /*   By: brandebr <brandebr@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:59:10 by brandebr          #+#    #+#             */
-/*   Updated: 2024/09/04 18:17:41 by brandebr         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:53:52 by brandebr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	Account::makeDeposit(int deposit) {
     ++_totalNbDeposits;
     Account::_displayTimestamp();
 	std::cout << "index:" << _accountIndex
-		<< ";p_amount:" << p_amount// 47  _amount
+		<< ";p_amount:" << p_amount
 		<< ";deposit:" << deposit
 		<< ";amount:" << _amount
 		<< ";nb_deposits:" << _nbDeposits
@@ -122,22 +122,4 @@ int		Account::getNbDeposits(void) {
 int		Account::getNbWithdrawals(void) {
 	return Account::_totalNbWithdrawals;
 }
-/*	
 
-std::string Contact::getFirstName() const {
-return firstName;
-}
-std::string Contact::getLastName() const {
-return lastName;
-}
-std::string Contact::getNickName() const {
-return nickName;
-}
-std::string Contact::getPhoneNumber() const {
-return phoneNumber;
-}
-std::string Contact::getSecret() const {
-return secret;
-}
-
-*/
