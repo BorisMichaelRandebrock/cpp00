@@ -6,7 +6,7 @@
 /*   By: brandebr <brandebr@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:49:35 by brandebr          #+#    #+#             */
-/*   Updated: 2024/09/04 13:07:31 by brandebr         ###   ########.fr       */
+/*   Updated: 2024/09/05 13:09:07 by brandebr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void PhoneBook::addContact() {
     phoneNumber = getInput("Please enter the contact's phone number.. 📱", " telephone number");
     secret = getInput("Please enter the contact's darkest secret. 👿", " darkest secret");
 	contacts[totalContacts % 8] = Contact(totalContacts % 8, name, lastName, nickName, phoneNumber, secret);
+	std::cout <<std::endl;
 	totalContacts++;
 }
 
@@ -114,13 +115,14 @@ void PhoneBook::search() {
         	std::cout << std::setw(10) << "Nickname: " << formatField(contacts[i].getNickName()) << std::endl;
 		}
 	}
-	std::cout << "" << std::endl;	
+	std::cout << std::endl;	
 	std::cout << "**********************************************************************************************" << std::endl;	
-	std::cout << "" << std::endl;	
+	std::cout << std::endl;	
 	int	searched;
 	std::cout << "Please enter the contacts index number to display all details " << std::endl << std::endl;
 
 	std::cin >> searched;
+	std::cin.ignore(4200, '\n');
 	int i = 0;
 	while (i < totalContacts)
 		i++;
@@ -137,8 +139,8 @@ void PhoneBook::search() {
 	std::cout << "Nickname: 		" << GREEN << contacts[searched].getNickName() << RESET << std::endl;
 	std::cout << "Telephone:	 	" << GREEN << contacts[searched].getPhoneNumber() << RESET << std::endl;
 	std::cout << "Darkest Secret:		" << GREEN << contacts[searched].getSecret() << RESET << std::endl;
-	std::cout << "" << std::endl;	
+	std::cout << std::endl;	
 	std::cout << "**********************************************************************************************" << std::endl;	
-	std::cout << "" << std::endl;	
+	std::cout << std::endl;	
 
 }

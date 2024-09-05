@@ -6,7 +6,7 @@
 /*   By: brandebr <brandebr@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:14:07 by brandebr          #+#    #+#             */
-/*   Updated: 2024/09/04 11:15:10 by brandebr         ###   ########.fr       */
+/*   Updated: 2024/09/05 13:46:36 by brandebr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,60 +25,77 @@
 #define CYAN    "\033[36m"
 #define WHITE   "\033[37m"
 
-char getValidUserInput() {
-	char userInput;
+enum	Options {
+	ADD,
+	SEARCH,
+	EXIT,
+	BLAH,
+	WARN,
+};
+
+Options stringEnum(const std::string &input) {
+	if (input == "ADD") return ADD;
+	else if (input == "SEARCH") return SEARCH;
+	else if (input == "EXIT") return EXIT;
+	else if (input == "BLAH") return BLAH;
+	else return WARN;
+}
+
+std::string getValidUserInput() {
+	std::string userInput;
 
     while (true) {
         std::cout << BLUE << "Please enter your choice: "<< RESET << std::endl << std::endl;
-        std::cout << "Enter 1 for creating a new Contact." << std::endl;
-        std::cout << "Enter 2 for searching contacts" << std::endl;
-        std::cout << "Enter 3 for exit" << std::endl;
+        std::cout << "Enter ADD for creating a new Contact." << std::endl;
+        std::cout << "Enter SEARCH for searching contacts" << std::endl;
+        std::cout << "Enter EXIT for closing the phonebook" << std::endl;
 
-        std::cin >> userInput;
+		std::getline(std::cin, userInput);
+
 		if (std::cin.eof()) {
 			std::cout << RED << "EOF encountered. Exiting." << RESET << std::endl;
             exit(0);
         }
-		if (userInput == '\n') {
+		if (userInput == "\n") {
             std::cout << RED << "Empty input is not valid. Please enter a valid number." << RESET << std::endl << std::endl;
             continue;
         }
         if (std::cin.fail()) {
             std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.ignore(4200, '\n');
             std::cout << RED << "Invalid input. Please enter a  valid number .." << RESET << std::endl << std::endl;
-		}else if (userInput != '1' && userInput != '2' && userInput != '3' && userInput != '4') {
-				std::cout << RED << "Please enter a valid number between 1 and 3" << RESET << std::endl <<std::endl;
-				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		}else if (userInput != "ADD" && userInput != "SEARCH" && userInput != "EXIT" && userInput != "hidden") {
+				std::cout << "\033[2J\033[H" << std::endl; 
+				std::cout << RED << "Please enter a valid command: ADD, SEARCH or EXIT" << RESET << std::endl <<std::endl;
 				continue;
         } else {
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             return userInput;
         }
     }
 }
 
 int main() {
-PhoneBook phony;
+	PhoneBook phony;
 	std::cout << "\033[2J\033[H" << std::endl; 
     std::cout << GREEN << "Welcome to the PhoneBook application!" << RESET << std::endl << std::endl;
-	char	userInput;
+	std::string	userInput;
 
 	while (true) {
 		userInput = getValidUserInput(); 
-
-		switch (userInput) {
-			case '1':
+		
+		Options input = stringEnum(userInput);
+		switch (input) {
+			case ADD:
         		phony.addContact();
 				break;
-			case '2':
+			case SEARCH:
 				phony.search();
 				break;
-			case '3':
+			case EXIT:
 				std::cout << GREEN <<"see you next time.. Goodbye.. 👋" << RESET << std::endl << std::endl;
 				return 0;
 				break;
-			case '4':
+			case BLAH:
 				std::cout << MAGENTA << phony.speak() << RESET << std::endl;
 				break;
 			default:
@@ -88,3 +105,7 @@ PhoneBook phony;
 	}
 	return 0;
 }
+			/*std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			 *
+			//PhoneBook	*phony = new PhoneBook();
+			 * */
