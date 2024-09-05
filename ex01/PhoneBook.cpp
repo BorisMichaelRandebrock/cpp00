@@ -6,7 +6,7 @@
 /*   By: brandebr <brandebr@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:49:35 by brandebr          #+#    #+#             */
-/*   Updated: 2024/09/05 15:30:55 by brandebr         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:42:37 by brandebr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ std::string trim(const std::string &str) {
     return str.substr(first, (last - first + 1));
 }
 
-bool isNumber(const std::string& str) {
+bool isNumber(const std::string &str) {
     if (str.empty()) return false; 
 
     for (std::string::const_iterator it = str.begin(); it != str.end(); ++it) {
@@ -66,7 +66,7 @@ int	getPhone() {
             std::cout << RED << "EOF encountered. Exiting." << RESET << std::endl;
 			exit(0);
 		}
-		if (input.empty() || !isNumber(input) || input.length() > 9) {
+		if (!isNumber(input) || input.length() > 9) {
         	std::cout << RED << "Please enter a valid phone NUMBER" << RESET << std::endl;
 			continue;
 		}
