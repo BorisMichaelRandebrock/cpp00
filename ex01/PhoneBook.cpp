@@ -6,7 +6,7 @@
 /*   By: brandebr <brandebr@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:49:35 by brandebr          #+#    #+#             */
-/*   Updated: 2024/09/05 13:09:07 by brandebr         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:30:55 by brandebr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cstdlib>
+#include <cctype>
 #include <sstream>
 #include "phonebook.hpp"
 #include "contact.hpp"
@@ -44,6 +45,39 @@ std::string trim(const std::string &str) {
     return str.substr(first, (last - first + 1));
 }
 
+bool isNumber(const std::string& str) {
+    if (str.empty()) return false; 
+
+    for (std::string::const_iterator it = str.begin(); it != str.end(); ++it) {
+        if (!std::isdigit(*it)) return false; 
+    }
+
+    return true;
+}
+
+int	getPhone() {
+	int			num;
+	std::string input;
+	
+	while (42) {
+		std::cout << "Please enter the contact's phone number.. 📱"  << std::endl; 
+		std::getline(std::cin, input);
+		if (std::cin.eof()) {
+            std::cout << RED << "EOF encountered. Exiting." << RESET << std::endl;
+			exit(0);
+		}
+		if (input.empty() || !isNumber(input) || input.length() > 9) {
+        	std::cout << RED << "Please enter a valid phone NUMBER" << RESET << std::endl;
+			continue;
+		}
+		if (isNumber(input)) {
+			break;
+		}
+	}
+	num = std::atoi(input.c_str());
+	return num;
+}
+
 std::string getInput(const std::string &prompt, const std::string &inputField) {
 	std::string input;
 	while (42) {
@@ -63,12 +97,12 @@ std::string getInput(const std::string &prompt, const std::string &inputField) {
 }
 	
 void PhoneBook::addContact() {
-	std::string name, lastName, nickName, phoneNumber, secret;
-
+	std::string name, lastName, nickName, secret;
+	int	phoneNumber;
     name = getInput("Please enter the contact's name.. ㍻", " name");
     lastName = getInput("Please enter the contact's last name..", " last name");
     nickName = getInput("Please enter the contact's nickname.. 🤗", " nickname");
-    phoneNumber = getInput("Please enter the contact's phone number.. 📱", " telephone number");
+    phoneNumber = getPhone();
     secret = getInput("Please enter the contact's darkest secret. 👿", " darkest secret");
 	contacts[totalContacts % 8] = Contact(totalContacts % 8, name, lastName, nickName, phoneNumber, secret);
 	std::cout <<std::endl;

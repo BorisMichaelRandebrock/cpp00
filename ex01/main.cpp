@@ -6,7 +6,7 @@
 /*   By: brandebr <brandebr@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:14:07 by brandebr          #+#    #+#             */
-/*   Updated: 2024/09/05 13:46:36 by brandebr         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:29:11 by brandebr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ std::string getValidUserInput() {
             std::cin.clear();
             std::cin.ignore(4200, '\n');
             std::cout << RED << "Invalid input. Please enter a  valid number .." << RESET << std::endl << std::endl;
-		}else if (userInput != "ADD" && userInput != "SEARCH" && userInput != "EXIT" && userInput != "hidden") {
+		} else if (userInput != "ADD" && userInput != "SEARCH" && userInput != "EXIT" && userInput != "hidden") {
 				std::cout << "\033[2J\033[H" << std::endl; 
 				std::cout << RED << "Please enter a valid command: ADD, SEARCH or EXIT" << RESET << std::endl <<std::endl;
 				continue;
