@@ -6,15 +6,15 @@
 /*   By: brandebr <brandebr@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:14:07 by brandebr          #+#    #+#             */
-/*   Updated: 2024/09/05 15:29:11 by brandebr         ###   ########.fr       */
+/*   Updated: 2024/09/06 13:37:37 by brandebr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <limits>
 #include <cstdlib>
-#include "phonebook.hpp"
-#include "contact.hpp"
+#include "Phonebook.hpp"
+#include "Contact.hpp"
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"

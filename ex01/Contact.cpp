@@ -6,14 +6,14 @@
 /*   By: brandebr <brandebr@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 19:18:34 by brandebr          #+#    #+#             */
-/*   Updated: 2024/09/05 15:24:58 by brandebr         ###   ########.fr       */
+/*   Updated: 2024/09/06 13:39:10 by brandebr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include <string>
 #include <iostream>
-#include "contact.hpp"
+#include "Contact.hpp"
 
 
 Contact::Contact() : index(0), firstName(""), lastName(""), nickName(""), phoneNumber(0), secret("") {}

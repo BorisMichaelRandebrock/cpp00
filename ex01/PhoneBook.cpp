@@ -6,7 +6,7 @@
 /*   By: brandebr <brandebr@42barcelona.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:49:35 by brandebr          #+#    #+#             */
-/*   Updated: 2024/09/05 15:42:37 by brandebr         ###   ########.fr       */
+/*   Updated: 2024/09/06 13:38:24 by brandebr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #include <cstdlib>
 #include <cctype>
 #include <sstream>
-#include "phonebook.hpp"
-#include "contact.hpp"
+#include "Phonebook.hpp"
+#include "Contact.hpp"
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
